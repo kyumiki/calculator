@@ -1,4 +1,4 @@
-﻿* {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -21,14 +21,14 @@ body {
     width: 100%;
     min-height: 100vh;
     background: #fbf5e8;
-    padding: 1rem 1rem 2rem 1rem;
+    padding: 0.8rem 0.8rem 2rem 0.8rem;
 }
 
 .nav {
     display: flex;
-    gap: 0.3rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.6rem;
+    gap: 0.15rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
     border-bottom: 1px solid #dbb88c;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -38,10 +38,10 @@ body {
 .nav-link {
     text-decoration: none;
     color: #8b6b41;
-    padding: 0.5rem 0.8rem;
-    border-radius: 1.5rem;
+    padding: 0.4rem 0.55rem;
+    border-radius: 1.2rem;
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     white-space: nowrap;
     flex-shrink: 0;
 }
@@ -52,24 +52,24 @@ body {
     }
 
 h1 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: #4a3620;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
 }
 
 .input-panel {
     background: #fef7ed;
-    border-radius: 1.2rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 8px rgba(90, 50, 20, 0.08);
+    border-radius: 1rem;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 2px 6px rgba(90, 50, 20, 0.06);
 }
 
 .food-row {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    margin-bottom: 0.8rem;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
 }
 
 .food-name {
@@ -83,17 +83,26 @@ h1 {
 label {
     display: block;
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #6b4f32;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.15rem;
+}
+
+.label-small {
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: #8b7655;
+    display: block;
+    margin-top: -0.1rem;
+    margin-bottom: 0.3rem;
 }
 
 input, select {
     background: #fffef9;
     border: 1px solid #e7cfb0;
-    border-radius: 0.7rem;
-    padding: 0.7rem 0.7rem;
-    font-size: 1rem;
+    border-radius: 0.6rem;
+    padding: 0.6rem 0.6rem;
+    font-size: 0.95rem;
     width: 100%;
     outline: none;
     color: #2e2416;
@@ -104,83 +113,58 @@ input, select {
 select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b4f32' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 0.8rem center;
-    padding-right: 2rem;
+    background-position: right 0.6rem center;
+    padding-right: 1.8rem;
     cursor: pointer;
 }
 
     input:focus, select:focus {
         border-color: #b28b5e;
-        box-shadow: 0 0 0 2px rgba(180, 130, 70, 0.2);
+        box-shadow: 0 0 0 2px rgba(180, 130, 70, 0.15);
     }
 
 .macro-section-title {
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #5f4a32;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 
 .macro-display {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.4rem;
-    margin-bottom: 0.8rem;
+    gap: 0.35rem;
+    margin-bottom: 0.6rem;
 }
 
 .macro-item-display {
     background: #ffffff;
-    border-radius: 0.7rem;
-    padding: 0.5rem 0.7rem;
+    border-radius: 0.6rem;
+    padding: 0.45rem 0.6rem;
     border: 1px solid #e9d6bb;
-    font-size: 0.85rem;
-    color: #3e2e1c;
-}
-
-.current-calculation {
-    background: #fff5e8;
-    border-radius: 0.7rem;
-    padding: 0.6rem 0.8rem;
-    margin: 0.8rem 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.6rem;
-}
-
-.kcal-badge {
-    background: #f3debd;
-    border-radius: 1.5rem;
-    padding: 0.35rem 0.8rem;
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: #4d3820;
-}
-
-.macro-summary {
     font-size: 0.8rem;
-    color: #5e4430;
+    color: #3e2e1c;
 }
 
 .action-buttons {
     display: flex;
-    gap: 0.5rem;
-    margin-top: 0.8rem;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
 }
 
 .btn {
     background: #faf3e9;
     border: 1px solid #c9aa7a;
-    padding: 0.65rem 1rem;
-    border-radius: 1.5rem;
+    padding: 0.55rem 0.8rem;
+    border-radius: 1.2rem;
     font-weight: 600;
     color: #4a3927;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     white-space: nowrap;
     flex: 1;
     text-align: center;
-    min-height: 44px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -197,49 +181,45 @@ select {
     transform: scale(0.97);
 }
 
-.btn-primary:active {
-    background: #8a6a3f;
-}
-
 .summary {
     background: #ede0cc;
-    border-radius: 1.2rem;
-    padding: 1rem;
+    border-radius: 1rem;
+    padding: 0.8rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    gap: 0.4rem;
+    margin-bottom: 0.8rem;
 }
 
 .summary-title {
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #4d3a24;
 }
 
 .total-kcal {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: #382810;
 }
 
 .total-macros {
     display: flex;
-    gap: 0.8rem;
+    gap: 0.6rem;
     color: #3e3322;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     flex-wrap: wrap;
 }
 
 .history-title {
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #4f3e2a;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.3rem;
 }
 
 .history-list {
-    max-height: 300px;
+    max-height: 280px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -247,73 +227,111 @@ select {
 .history-item {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     background: #fffbf5;
-    border-radius: 0.7rem;
-    padding: 0.6rem 0.8rem;
-    margin-bottom: 0.4rem;
+    border-radius: 0.6rem;
+    padding: 0.5rem 0.7rem;
+    margin-bottom: 0.35rem;
     border: 1px solid #e7d0ad;
-    font-size: 0.85rem;
-    gap: 0.5rem;
+    font-size: 0.8rem;
+    gap: 0.4rem;
 }
 
-    .history-item small {
-        font-size: 0.75rem;
+.history-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+    .history-item-info strong {
+        font-size: 0.85rem;
+    }
+
+    .history-item-info small {
+        font-size: 0.7rem;
         color: #6b5a44;
     }
+
+.history-item-macros {
+    font-size: 0.7rem;
+    color: #5e4430;
+}
 
 .empty-history {
     color: #a4927a;
     padding: 1rem;
     text-align: center;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
 
 .remove-btn {
     background: #e74c3c;
     border: none;
     color: white;
-    font-weight: bold;
-    font-size: 1rem;
+    font-weight: 400;
+    font-size: 1.1rem;
     cursor: pointer;
-    padding: 0.4rem 0.7rem;
     min-height: 44px;
     min-width: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    border-radius: 0.6rem;
+    border-radius: 0.5rem;
+    line-height: 1;
+    position: relative;
 }
 
+    .remove-btn::before {
+        content: '\2715';
+        font-size: 1rem;
+        color: white;
+        font-weight: 300;
+    }
+
     .remove-btn:active {
-        color: #b34b2c;
+        background: #c0392b;
     }
 
 .calendar-controls {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.8rem;
 }
 
     .calendar-controls input[type="date"] {
         flex: 1;
-        min-width: 120px;
-        max-width: none;
+        min-width: 80px;
+        max-width: 120px;
+        padding: 0.45rem 0.3rem;
+        font-size: 0.8rem;
     }
 
-    .calendar-controls .btn {
-        flex: 0;
-        min-width: 44px;
-        padding: 0.65rem 0.8rem;
-    }
+.btn-circle {
+    flex: 0;
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-today {
+    flex: 0;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.75rem;
+    min-height: 36px;
+    white-space: nowrap;
+}
 
 .product-form {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.5rem;
 }
 
 .form-row {
@@ -323,7 +341,7 @@ select {
 
 .form-row-inline {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.4rem;
 }
 
     .form-row-inline > div {
@@ -332,53 +350,40 @@ select {
 
 hr {
     border: 0.5px solid #ddc7a8;
-    margin: 0.8rem 0;
+    margin: 0.6rem 0;
 }
 
-@media (min-width: 500px) {
-    body {
-        padding: 16px;
-        align-items: center;
-    }
-
-    .card {
-        max-width: 480px;
-        min-height: auto;
-        border-radius: 2rem;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        padding: 1.5rem;
-    }
-
-    .food-row {
-        flex-direction: row;
-    }
-
-    .macro-display {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
+.goal-indicator {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.8rem;
+    margin-top: 0.2rem;
+    display: inline-block;
 }
+
 .progress-item {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
 }
 
 .progress-label {
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #5f4a32;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.15rem;
 }
 
 .progress-bar-bg {
     background: #e9d6bb;
-    border-radius: 1rem;
-    height: 14px;
+    border-radius: 0.8rem;
+    height: 12px;
     overflow: hidden;
 }
 
 .progress-bar-fill {
     height: 100%;
     background: #27ae60;
-    border-radius: 1rem;
+    border-radius: 0.8rem;
     transition: width 0.3s ease;
     max-width: 100%;
 }
@@ -396,16 +401,83 @@ hr {
     }
 
 .progress-text {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: #6b5a44;
     margin-top: 0.1rem;
     text-align: right;
 }
-.goal-indicator {
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.2rem 0.6rem;
-    border-radius: 1rem;
-    margin-top: 0.3rem;
-    display: inline-block;
+
+.week-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.3rem;
+}
+
+    .week-header .history-title {
+        margin-bottom: 0;
+    }
+
+.week-nav {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.btn-circle-sm {
+    flex: 0;
+    min-width: 30px;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.week-range {
+    font-size: 0.7rem;
+    color: #6b5a44;
+    margin-bottom: 0.4rem;
+    text-align: center;
+}
+.progress-compact {
+    padding: 0.6rem 0.8rem;
+}
+
+.progress-item-sm {
+    margin-bottom: 0.3rem;
+}
+
+.progress-bar-bg-sm {
+    height: 8px;
+} 
+
+@media (min-width: 500px) {
+    body {
+        padding: 16px;
+        align-items: center;
+    }
+
+    .card {
+        max-width: 480px;
+        min-height: auto;
+        border-radius: 1.8rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        padding: 1.2rem;
+    }
+
+    .food-row {
+        flex-direction: row;
+    }
+
+    .macro-display {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .nav-link {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.85rem;
+    }
 }
