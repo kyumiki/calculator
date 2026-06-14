@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -21,21 +21,21 @@
             <div class="form-row-inline">
                 <div>
                     <label>Ккал в день</label>
-                    <input type="number" id="goalKcal" placeholder="2000" min="0" step="10">
+                    <input type="number" id="goalKcalInput" placeholder="2000" min="0" step="10">
                 </div>
                 <div>
                     <label>Белки (г)</label>
-                    <input type="number" id="goalProtein" placeholder="100" min="0" step="1">
+                    <input type="number" id="goalProteinInput" placeholder="100" min="0" step="1">
                 </div>
             </div>
             <div class="form-row-inline">
                 <div>
                     <label>Жиры (г)</label>
-                    <input type="number" id="goalFat" placeholder="60" min="0" step="1">
+                    <input type="number" id="goalFatInput" placeholder="60" min="0" step="1">
                 </div>
                 <div>
                     <label>Углеводы (г)</label>
-                    <input type="number" id="goalCarbs" placeholder="250" min="0" step="1">
+                    <input type="number" id="goalCarbsInput" placeholder="250" min="0" step="1">
                 </div>
             </div>
             <div class="action-buttons" style="margin-top:0.6rem;">
@@ -57,43 +57,14 @@
         </div>
 
         <div class="input-panel">
-            <div class="history-title">Прогресс по целям</div>
-
-            <div class="progress-item">
-                <div class="progress-label">Калории</div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" id="kcalProgress" style="width:0%"></div>
+            <div class="week-header">
+                <div class="history-title">Статистика за 7 дней</div>
+                <div class="week-nav">
+                    <button class="btn btn-circle-sm" id="weekPrevBtn">←</button>
+                    <button class="btn btn-circle-sm" id="weekNextBtn">→</button>
                 </div>
-                <div class="progress-text"><span id="kcalProgressText">0</span> / <span id="goalKcalDisplay">—</span> ккал</div>
             </div>
-
-            <div class="progress-item">
-                <div class="progress-label">Белки</div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill protein-fill" id="proteinProgress" style="width:0%"></div>
-                </div>
-                <div class="progress-text"><span id="proteinProgressText">0</span> / <span id="goalProteinDisplay">—</span> г</div>
-            </div>
-
-            <div class="progress-item">
-                <div class="progress-label">Жиры</div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill fat-fill" id="fatProgress" style="width:0%"></div>
-                </div>
-                <div class="progress-text"><span id="fatProgressText">0</span> / <span id="goalFatDisplay">—</span> г</div>
-            </div>
-
-            <div class="progress-item">
-                <div class="progress-label">Углеводы</div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill carbs-fill" id="carbsProgress" style="width:0%"></div>
-                </div>
-                <div class="progress-text"><span id="carbsProgressText">0</span> / <span id="goalCarbsDisplay">—</span> г</div>
-            </div>
-        </div>
-
-        <div class="input-panel">
-            <div class="history-title">Статистика за 7 дней</div>
+            <div class="week-range" id="weekRangeLabel"></div>
             <div id="weekStats"></div>
         </div>
     </div>
