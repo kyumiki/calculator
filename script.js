@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
 
     var PRODUCTS_KEY = 'kbju_products';
@@ -123,6 +123,54 @@
         }
     }
 
+    function formatFullDate(dateStr) {
+        var parts = dateStr.split('-');
+        return parts[2] + '.' + parts[1] + '.' + parts[0];
+    }
+
+    function updateProgressBar(bar, text, current, goal) {
+        var pct = goal > 0 ? Math.min((current / goal) * 100, 100) : 0;
+        bar.style.width = pct + '%';
+        text.textContent = current.toFixed(1);
+        if (goal > 0 && current >= goal) {
+            bar.style.background = '#27ae60';
+        } else if (goal > 0 && pct >= 90) {
+            bar.style.background = '#e67e22';
+        } else if (goal > 0) {
+            bar.style.background = '#c0392b';
+        } else {
+            bar.style.background = '';
+        }
+    }
+
+    function updateAllProgress() {
+        var goals = getGoals();
+        var totals = getDayTotals(getTodayKey());
+
+        var kcalBar = document.getElementById('kcalProgress');
+        var proteinBar = document.getElementById('proteinProgress');
+        var fatBar = document.getElementById('fatProgress');
+        var carbsBar = document.getElementById('carbsProgress');
+        var kcalText = document.getElementById('kcalProgressText');
+        var proteinText = document.getElementById('proteinProgressText');
+        var fatText = document.getElementById('fatProgressText');
+        var carbsText = document.getElementById('carbsProgressText');
+        var goalKcalDisp = document.getElementById('goalKcalDisplay');
+        var goalProteinDisp = document.getElementById('goalProteinDisplay');
+        var goalFatDisp = document.getElementById('goalFatDisplay');
+        var goalCarbsDisp = document.getElementById('goalCarbsDisplay');
+
+        if (goalKcalDisp) goalKcalDisp.textContent = goals.kcal || '—';
+        if (goalProteinDisp) goalProteinDisp.textContent = goals.protein || '—';
+        if (goalFatDisp) goalFatDisp.textContent = goals.fat || '—';
+        if (goalCarbsDisp) goalCarbsDisp.textContent = goals.carbs || '—';
+
+        if (kcalBar) updateProgressBar(kcalBar, kcalText, totals.kcal, goals.kcal);
+        if (proteinBar) updateProgressBar(proteinBar, proteinText, totals.protein, goals.protein);
+        if (fatBar) updateProgressBar(fatBar, fatText, totals.fat, goals.fat);
+        if (carbsBar) updateProgressBar(carbsBar, carbsText, totals.carbs, goals.carbs);
+    }
+
     // ========== СТРАНИЦА ПРОДУКТОВ ==========
     if (document.getElementById('saveProductBtn')) {
         var nameInput = document.getElementById('productNameInput');
@@ -139,16 +187,21 @@
                 listContainer.innerHTML = '<div class="empty-history">Нет сохраненных продуктов</div>';
                 return;
             }
-            for (var i = 0; i < products.length; i++) {
+            for (var i = products.length - 1; i >= 0; i--) {
                 var product = products[i];
                 var kcal = calculateKcal(product.protein, product.fat, product.carbs);
                 var div = document.createElement('div');
                 div.className = 'history-item';
-                div.innerHTML = '<div><strong>' + escapeHtml(product.name) + '</strong><br><small>Б: ' + product.protein + ' г · Ж: ' + product.fat + ' г · У: ' + product.carbs + ' г · ' + kcal.toFixed(1) + ' ккал / 100 г</small></div>' +
-                    '<button class="remove-btn" data-index="' + i + '">&times;</button>';
+                div.innerHTML =
+                    '<div class="history-item-info">' +
+                    '<strong>' + escapeHtml(product.name) + '</strong>' +
+                    '<br><small>' + kcal.toFixed(1) + ' ккал / 100 г</small>' +
+                    '<br><span class="history-item-macros">Б: ' + product.protein + ' Ж: ' + product.fat + ' У: ' + product.carbs + '</span>' +
+                    '</div>' +
+                    '<button class="remove-btn" data-index="' + i + '"></button>';
                 listContainer.appendChild(div);
             }
-            var removeBtns = document.querySelectorAll('.remove-btn');
+            var removeBtns = document.querySelectorAll('#productsListContainer .remove-btn');
             for (var j = 0; j < removeBtns.length; j++) {
                 removeBtns[j].addEventListener('click', function () {
                     var idx = parseInt(this.getAttribute('data-index'), 10);
@@ -193,10 +246,6 @@
         var fatPer100 = document.getElementById('fatPer100');
         var carbsPer100 = document.getElementById('carbsPer100');
         var kcalPer100 = document.getElementById('kcalPer100');
-        var calculatedKcal = document.getElementById('calculatedKcal');
-        var calculatedProtein = document.getElementById('calculatedProtein');
-        var calculatedFat = document.getElementById('calculatedFat');
-        var calculatedCarbs = document.getElementById('calculatedCarbs');
         var totalKcalDisplay = document.getElementById('totalKcalDisplay');
         var totalProtein = document.getElementById('totalProtein');
         var totalFat = document.getElementById('totalFat');
@@ -218,37 +267,26 @@
         }
 
         function updateDisplay() {
-            if (selectedProduct) {
-                proteinPer100.textContent = selectedProduct.protein;
-                fatPer100.textContent = selectedProduct.fat;
-                carbsPer100.textContent = selectedProduct.carbs;
-                kcalPer100.textContent = calculateKcal(selectedProduct.protein, selectedProduct.fat, selectedProduct.carbs).toFixed(1);
-            } else {
-                proteinPer100.textContent = '0';
-                fatPer100.textContent = '0';
-                carbsPer100.textContent = '0';
-                kcalPer100.textContent = '0';
-            }
             recalculate();
         }
 
         function recalculate() {
             var grams = parseFloat(gramsInput.value) || 0;
             if (!selectedProduct || grams <= 0) {
-                calculatedKcal.textContent = '0';
-                calculatedProtein.textContent = '0';
-                calculatedFat.textContent = '0';
-                calculatedCarbs.textContent = '0';
+                proteinPer100.textContent = '0';
+                fatPer100.textContent = '0';
+                carbsPer100.textContent = '0';
+                kcalPer100.textContent = '0';
                 return;
             }
             var p = (selectedProduct.protein * grams) / 100;
             var f = (selectedProduct.fat * grams) / 100;
             var c = (selectedProduct.carbs * grams) / 100;
             var kcal = calculateKcal(p, f, c);
-            calculatedProtein.textContent = p.toFixed(1);
-            calculatedFat.textContent = f.toFixed(1);
-            calculatedCarbs.textContent = c.toFixed(1);
-            calculatedKcal.textContent = kcal.toFixed(1);
+            proteinPer100.textContent = p.toFixed(1);
+            fatPer100.textContent = f.toFixed(1);
+            carbsPer100.textContent = c.toFixed(1);
+            kcalPer100.textContent = kcal.toFixed(1);
         }
 
         function updateToday() {
@@ -259,6 +297,7 @@
             totalCarbs.textContent = totals.carbs.toFixed(1);
             totalKcalDisplay.textContent = totals.kcal.toFixed(1) + ' ккал';
             updateGoalIndicator('goalIndicator', today);
+            updateAllProgress();
             renderTodayHistory();
         }
 
@@ -271,13 +310,17 @@
                 historyContainer.innerHTML = '<div class="empty-history">Пока ничего не добавлено</div>';
                 return;
             }
-            for (var i = 0; i < entries.length; i++) {
+            for (var i = entries.length - 1; i >= 0; i--) {
                 var entry = entries[i];
                 var div = document.createElement('div');
                 div.className = 'history-item';
-                div.innerHTML = '<div><strong>' + escapeHtml(entry.name) + '</strong><br><small>' + entry.grams.toFixed(1) + ' г · ' + entry.kcal.toFixed(1) + ' ккал</small></div>' +
-                    '<div><span>Б: ' + entry.protein.toFixed(1) + ' Ж: ' + entry.fat.toFixed(1) + ' У: ' + entry.carbs.toFixed(1) + '</span>' +
-                    '<button class="remove-btn" data-index="' + i + '">&times;</button></div>';
+                div.innerHTML =
+                    '<div class="history-item-info">' +
+                    '<strong>' + escapeHtml(entry.name) + '</strong>' +
+                    '<br><small>' + entry.grams.toFixed(1) + ' г · ' + entry.kcal.toFixed(1) + ' ккал</small>' +
+                    '<br><span class="history-item-macros">Б: ' + entry.protein.toFixed(1) + ' Ж: ' + entry.fat.toFixed(1) + ' У: ' + entry.carbs.toFixed(1) + '</span>' +
+                    '</div>' +
+                    '<button class="remove-btn" data-index="' + i + '"></button>';
                 historyContainer.appendChild(div);
             }
             var removeBtns = document.querySelectorAll('#historyContainer .remove-btn');
@@ -386,13 +429,28 @@
                 historyContainer.innerHTML = '<div class="empty-history">Нет данных за этот день</div>';
                 return;
             }
-            for (var i = 0; i < entries.length; i++) {
+            for (var i = entries.length - 1; i >= 0; i--) {
                 var entry = entries[i];
                 var div = document.createElement('div');
                 div.className = 'history-item';
-                div.innerHTML = '<div><strong>' + escapeHtml(entry.name) + '</strong><br><small>' + entry.grams.toFixed(1) + ' г · ' + entry.kcal.toFixed(1) + ' ккал</small></div>' +
-                    '<div><span>Б: ' + entry.protein.toFixed(1) + ' Ж: ' + entry.fat.toFixed(1) + ' У: ' + entry.carbs.toFixed(1) + '</span></div>';
+                div.innerHTML =
+                    '<div class="history-item-info">' +
+                    '<strong>' + escapeHtml(entry.name) + '</strong>' +
+                    '<br><small>' + entry.grams.toFixed(1) + ' г · ' + entry.kcal.toFixed(1) + ' ккал</small>' +
+                    '<br><span class="history-item-macros">Б: ' + entry.protein.toFixed(1) + ' Ж: ' + entry.fat.toFixed(1) + ' У: ' + entry.carbs.toFixed(1) + '</span>' +
+                    '</div>' +
+                    '<button class="remove-btn" data-index="' + i + '"></button>';
                 historyContainer.appendChild(div);
+            }
+            var removeBtns = document.querySelectorAll('#calendarHistoryContainer .remove-btn');
+            for (var j = 0; j < removeBtns.length; j++) {
+                removeBtns[j].addEventListener('click', function () {
+                    var idx = parseInt(this.getAttribute('data-index'), 10);
+                    var diary = getDiary();
+                    diary[currentDate].splice(idx, 1);
+                    saveDiary(diary);
+                    loadDay(currentDate);
+                });
             }
         }
 
@@ -416,10 +474,10 @@
 
     // ========== СТРАНИЦА МОЁ ==========
     if (document.getElementById('saveGoalsBtn')) {
-        var goalKcalInput = document.getElementById('goalKcal');
-        var goalProteinInput = document.getElementById('goalProtein');
-        var goalFatInput = document.getElementById('goalFat');
-        var goalCarbsInput = document.getElementById('goalCarbs');
+        var goalKcalInput = document.getElementById('goalKcalInput');
+        var goalProteinInput = document.getElementById('goalProteinInput');
+        var goalFatInput = document.getElementById('goalFatInput');
+        var goalCarbsInput = document.getElementById('goalCarbsInput');
         var saveBtn = document.getElementById('saveGoalsBtn');
 
         var todayKcalDisplay = document.getElementById('todayKcalDisplay');
@@ -427,22 +485,12 @@
         var todayFat = document.getElementById('todayFat');
         var todayCarbs = document.getElementById('todayCarbs');
 
-        var kcalProgress = document.getElementById('kcalProgress');
-        var proteinProgress = document.getElementById('proteinProgress');
-        var fatProgress = document.getElementById('fatProgress');
-        var carbsProgress = document.getElementById('carbsProgress');
-
-        var kcalProgressText = document.getElementById('kcalProgressText');
-        var proteinProgressText = document.getElementById('proteinProgressText');
-        var fatProgressText = document.getElementById('fatProgressText');
-        var carbsProgressText = document.getElementById('carbsProgressText');
-
-        var goalKcalDisplay = document.getElementById('goalKcalDisplay');
-        var goalProteinDisplay = document.getElementById('goalProteinDisplay');
-        var goalFatDisplay = document.getElementById('goalFatDisplay');
-        var goalCarbsDisplay = document.getElementById('goalCarbsDisplay');
-
         var weekStats = document.getElementById('weekStats');
+        var weekRangeLabel = document.getElementById('weekRangeLabel');
+        var weekPrevBtn = document.getElementById('weekPrevBtn');
+        var weekNextBtn = document.getElementById('weekNextBtn');
+
+        var weekOffset = 0;
 
         function loadGoals() {
             var goals = getGoals();
@@ -454,7 +502,6 @@
         }
 
         function updateDisplay() {
-            var goals = getGoals();
             var today = getTodayKey();
             var totals = getDayTotals(today);
 
@@ -462,16 +509,6 @@
             todayProtein.textContent = totals.protein.toFixed(1);
             todayFat.textContent = totals.fat.toFixed(1);
             todayCarbs.textContent = totals.carbs.toFixed(1);
-
-            goalKcalDisplay.textContent = goals.kcal || '—';
-            goalProteinDisplay.textContent = goals.protein || '—';
-            goalFatDisplay.textContent = goals.fat || '—';
-            goalCarbsDisplay.textContent = goals.carbs || '—';
-
-            updateProgress(kcalProgress, kcalProgressText, totals.kcal, goals.kcal, 'kcal');
-            updateProgress(proteinProgress, proteinProgressText, totals.protein, goals.protein, 'protein');
-            updateProgress(fatProgress, fatProgressText, totals.fat, goals.fat, 'fat');
-            updateProgress(carbsProgress, carbsProgressText, totals.carbs, goals.carbs, 'carbs');
 
             updateGoalIndicator('myGoalIndicator', today);
 
@@ -487,36 +524,28 @@
             updateWeekStats();
         }
 
-        function updateProgress(bar, text, current, goal, type) {
-            var pct = goal > 0 ? Math.min((current / goal) * 100, 100) : 0;
-            bar.style.width = pct + '%';
-            text.textContent = current.toFixed(1);
-
-            if (goal > 0 && current >= goal) {
-                bar.style.background = '#27ae60';
-            } else if (goal > 0 && pct >= 90) {
-                bar.style.background = '#e67e22';
-            } else if (goal > 0) {
-                bar.style.background = '#c0392b';
-            } else {
-                bar.style.background = '';
-            }
-        }
-
         function updateWeekStats() {
             var goals = getGoals();
             weekStats.innerHTML = '';
 
             if (!goals.kcal && !goals.protein && !goals.fat && !goals.carbs) {
                 weekStats.innerHTML = '<div class="empty-history">Сначала установите цели</div>';
+                weekRangeLabel.textContent = '';
                 return;
             }
+
+            var endDate = new Date();
+            endDate.setDate(endDate.getDate() + weekOffset * 7);
+            var startDate = new Date(endDate);
+            startDate.setDate(startDate.getDate() - 6);
+
+            weekRangeLabel.textContent = formatFullDate(getDateKey(startDate)) + ' — ' + formatFullDate(getDateKey(endDate));
 
             var daysInGoal = 0;
             var totalDays = 0;
 
             for (var i = 6; i >= 0; i--) {
-                var date = new Date();
+                var date = new Date(endDate);
                 date.setDate(date.getDate() - i);
                 var key = getDateKey(date);
                 totalDays++;
@@ -526,7 +555,7 @@
 
                 var totals = getDayTotals(key);
                 var dayName = date.toLocaleDateString('ru-RU', { weekday: 'short' });
-                var dateStr = key.split('-')[2] + '.' + key.split('-')[1];
+                var dateStr = formatFullDate(key);
 
                 var div = document.createElement('div');
                 div.className = 'history-item';
@@ -541,6 +570,18 @@
             summaryDiv.textContent = 'Дней в норме: ' + daysInGoal + ' из ' + totalDays;
             weekStats.appendChild(summaryDiv);
         }
+
+        weekPrevBtn.addEventListener('click', function () {
+            weekOffset--;
+            updateWeekStats();
+        });
+
+        weekNextBtn.addEventListener('click', function () {
+            if (weekOffset < 0) {
+                weekOffset++;
+                updateWeekStats();
+            }
+        });
 
         saveBtn.addEventListener('click', function () {
             var goals = {
