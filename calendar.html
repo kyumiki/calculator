@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Календарь питания</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="card">
+        <div class="nav">
+            <a href="index.html" class="nav-link">Калькулятор</a>
+            <a href="products.html" class="nav-link">Продукты</a>
+            <a href="calendar.html" class="nav-link active">Календарь</a>
+            <a href="my.html" class="nav-link">Моё</a>
+        </div>
+
+        <h1>Календарь</h1>
+
+        <div class="calendar-controls">
+            <button class="btn" id="prevDayBtn">←</button>
+            <input type="date" id="datePicker">
+            <button class="btn" id="nextDayBtn">→</button>
+            <button class="btn" id="todayBtn">Сегодня</button>
+        </div>
+
+        <div class="summary" id="calendarSummary">
+            <div>
+                <div class="summary-title" id="calendarDateTitle">Сегодня</div>
+                <div class="total-kcal" id="dayKcalDisplay">0 ккал</div>
+                <div class="goal-indicator" id="calendarGoalIndicator" style="display:none;"></div>
+            </div>
+            <div class="total-macros">
+                <div>Б: <span id="dayProtein">0</span> г</div>
+                <div>Ж: <span id="dayFat">0</span> г</div>
+                <div>У: <span id="dayCarbs">0</span> г</div>
+            </div>
+        </div>
+
+        <div class="history-title">Список продуктов:</div>
+        <div class="history-list" id="calendarHistoryContainer">
+            <div class="empty-history">Нет данных за этот день</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
