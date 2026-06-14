@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="macro-section-title">Пищевая ценность на 100 г</div>
+            <div class="macro-section-title">Пищевая ценность</div>
             <div class="macro-display">
                 <div class="macro-item-display">
                     <span>Белки: </span><span id="proteinPer100">0</span> г
@@ -44,17 +44,6 @@
                 </div>
                 <div class="macro-item-display">
                     <span>Ккал: </span><span id="kcalPer100">0</span>
-                </div>
-            </div>
-
-            <div class="current-calculation">
-                <div class="kcal-badge">
-                    <span id="calculatedKcal">0</span> ккал
-                </div>
-                <div class="macro-summary">
-                    Б: <span id="calculatedProtein">0</span> г ·
-                    Ж: <span id="calculatedFat">0</span> г ·
-                    У: <span id="calculatedCarbs">0</span> г
                 </div>
             </div>
 
@@ -73,6 +62,42 @@
                 <div>Б: <span id="totalProtein">0</span> г</div>
                 <div>Ж: <span id="totalFat">0</span> г</div>
                 <div>У: <span id="totalCarbs">0</span> г</div>
+            </div>
+        </div>
+
+        <div class="input-panel progress-compact" id="progressPanel">
+            <div class="history-title">Прогресс по целям</div>
+
+            <div class="progress-item progress-item-sm">
+                <div class="progress-label">Ккал</div>
+                <div class="progress-bar-bg progress-bar-bg-sm">
+                    <div class="progress-bar-fill" id="kcalProgress" style="width:0%"></div>
+                </div>
+                <div class="progress-text"><span id="kcalProgressText">0</span>/<span id="goalKcalDisplay">—</span></div>
+            </div>
+
+            <div class="progress-item progress-item-sm">
+                <div class="progress-label">Белки</div>
+                <div class="progress-bar-bg progress-bar-bg-sm">
+                    <div class="progress-bar-fill protein-fill" id="proteinProgress" style="width:0%"></div>
+                </div>
+                <div class="progress-text"><span id="proteinProgressText">0</span>/<span id="goalProteinDisplay">—</span></div>
+            </div>
+
+            <div class="progress-item progress-item-sm">
+                <div class="progress-label">Жиры</div>
+                <div class="progress-bar-bg progress-bar-bg-sm">
+                    <div class="progress-bar-fill fat-fill" id="fatProgress" style="width:0%"></div>
+                </div>
+                <div class="progress-text"><span id="fatProgressText">0</span>/<span id="goalFatDisplay">—</span></div>
+            </div>
+
+            <div class="progress-item progress-item-sm">
+                <div class="progress-label">Углеводы</div>
+                <div class="progress-bar-bg progress-bar-bg-sm">
+                    <div class="progress-bar-fill carbs-fill" id="carbsProgress" style="width:0%"></div>
+                </div>
+                <div class="progress-text"><span id="carbsProgressText">0</span>/<span id="goalCarbsDisplay">—</span></div>
             </div>
         </div>
 
