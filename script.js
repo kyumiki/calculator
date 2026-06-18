@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     var PRODUCTS_KEY = 'kbju_products';
@@ -99,7 +99,7 @@
 
     function escapeHtml(text) {
         var map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-        return String(text).replace(/[&<>"']/g, function (m) { return map[m]; });
+        return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
     }
 
     function updateGoalIndicator(elementId, dateKey) {
@@ -175,9 +175,9 @@
                 div.className = 'history-item';
                 div.innerHTML =
                     '<div class="history-item-info" data-index="' + i + '" style="cursor:pointer;">' +
-                    '<strong>' + escapeHtml(product.name) + '</strong>' +
-                    '<br><small>' + (product.category || 'Другое') + ' · ' + kcal.toFixed(1) + ' ккал / 100 г</small>' +
-                    '<br><span class="history-item-macros">Б: ' + product.protein + ' Ж: ' + product.fat + ' У: ' + product.carbs + '</span>' +
+                        '<strong>' + escapeHtml(product.name) + '</strong>' +
+                        '<br><small>' + (product.category || 'Другое') + ' · ' + kcal.toFixed(1) + ' ккал / 100 г</small>' +
+                        '<br><span class="history-item-macros">Б: ' + product.protein + ' Ж: ' + product.fat + ' У: ' + product.carbs + '</span>' +
                     '</div>' +
                     '<button class="remove-btn" data-index="' + i + '"></button>';
                 listContainer.appendChild(div);
@@ -185,7 +185,7 @@
 
             var infoBlocks = listContainer.querySelectorAll('.history-item-info');
             for (var k = 0; k < infoBlocks.length; k++) {
-                infoBlocks[k].addEventListener('click', function () {
+                infoBlocks[k].addEventListener('click', function() {
                     var idx = parseInt(this.getAttribute('data-index'), 10);
                     var prods = getProducts();
                     var product = prods[idx];
@@ -202,7 +202,7 @@
 
             var removeBtns = listContainer.querySelectorAll('.remove-btn');
             for (var j = 0; j < removeBtns.length; j++) {
-                removeBtns[j].addEventListener('click', function (e) {
+                removeBtns[j].addEventListener('click', function(e) {
                     e.stopPropagation();
                     var idx = parseInt(this.getAttribute('data-index'), 10);
                     var prods = getProducts();
@@ -214,7 +214,7 @@
             }
         }
 
-        saveBtn.addEventListener('click', function () {
+        saveBtn.addEventListener('click', function() {
             var name = nameInput.value.trim();
             var protein = parseFloat(proteinInput.value) || 0;
             var fat = parseFloat(fatInput.value) || 0;
@@ -305,8 +305,8 @@
                 var tab = document.createElement('div');
                 tab.className = 'tab' + (categories[i] === currentCategory ? ' active' : '');
                 tab.textContent = categories[i];
-                tab.addEventListener('click', (function (cat) {
-                    return function () { currentCategory = cat; renderTabs(); renderProducts(); };
+                tab.addEventListener('click', (function(cat) {
+                    return function() { currentCategory = cat; renderTabs(); renderProducts(); };
                 })(categories[i]));
                 tabsContainer.appendChild(tab);
             }
@@ -323,8 +323,8 @@
                 card.className = 'product-card';
                 if (selectedProduct === p) card.classList.add('selected');
                 card.innerHTML = '<strong>' + escapeHtml(p.name) + '</strong><small>' + kcal + ' ккал / 100 г · Б: ' + p.protein + ' Ж: ' + p.fat + ' У: ' + p.carbs + '</small>';
-                card.addEventListener('click', (function (product) {
-                    return function () {
+                card.addEventListener('click', (function(product) {
+                    return function() {
                         selectedProduct = product;
                         renderProducts();
                         recalculate();
@@ -398,13 +398,16 @@
             var breakfast = [];
             var lunch = [];
             var dinner = [];
+            var unknown = [];
 
             for (var i = 0; i < entries.length; i++) {
                 if (entries[i].meal === 'breakfast') breakfast.push({ entry: entries[i], index: i });
                 else if (entries[i].meal === 'lunch') lunch.push({ entry: entries[i], index: i });
                 else if (entries[i].meal === 'dinner') dinner.push({ entry: entries[i], index: i });
+                else unknown.push({ entry: entries[i], index: i });
             }
 
+            breakfast = breakfast.concat(unknown);
             renderMealContainer(breakfastContainer, breakfast);
             renderMealContainer(lunchContainer, lunch);
             renderMealContainer(dinnerContainer, dinner);
@@ -423,16 +426,16 @@
                 div.className = 'history-item';
                 div.innerHTML =
                     '<div class="history-item-info">' +
-                    '<strong>' + escapeHtml(entry.name) + '</strong>' +
-                    '<br><small>' + entry.grams.toFixed(1) + ' г · ' + entry.kcal.toFixed(1) + ' ккал</small>' +
-                    '<br><span class="history-item-macros">Б: ' + entry.protein.toFixed(1) + ' Ж: ' + entry.fat.toFixed(1) + ' У: ' + entry.carbs.toFixed(1) + '</span>' +
+                        '<strong>' + escapeHtml(entry.name) + '</strong>' +
+                        '<br><small>' + entry.grams.toFixed(1) + ' г · ' + entry.kcal.toFixed(1) + ' ккал</small>' +
+                        '<br><span class="history-item-macros">Б: ' + entry.protein.toFixed(1) + ' Ж: ' + entry.fat.toFixed(1) + ' У: ' + entry.carbs.toFixed(1) + '</span>' +
                     '</div>' +
                     '<button class="remove-btn" data-index="' + item.index + '"></button>';
                 container.appendChild(div);
             }
             var removeBtns = container.querySelectorAll('.remove-btn');
             for (var j = 0; j < removeBtns.length; j++) {
-                removeBtns[j].addEventListener('click', function () {
+                removeBtns[j].addEventListener('click', function() {
                     var idx = parseInt(this.getAttribute('data-index'), 10);
                     var diary = getDiary();
                     var today = getTodayKey();
@@ -445,7 +448,7 @@
 
         gramsInput.addEventListener('input', recalculate);
 
-        addBtn.addEventListener('click', function () {
+        addBtn.addEventListener('click', function() {
             if (!selectedProduct) {
                 alert('Выберите продукт');
                 return;
@@ -531,13 +534,16 @@
             var breakfast = [];
             var lunch = [];
             var dinner = [];
+            var unknown = [];
 
             for (var i = 0; i < entries.length; i++) {
                 if (entries[i].meal === 'breakfast') breakfast.push(entries[i]);
                 else if (entries[i].meal === 'lunch') lunch.push(entries[i]);
                 else if (entries[i].meal === 'dinner') dinner.push(entries[i]);
+                else unknown.push(entries[i]);
             }
 
+            breakfast = breakfast.concat(unknown);
             renderCalendarMealContainer(calendarBreakfastContainer, breakfast);
             renderCalendarMealContainer(calendarLunchContainer, lunch);
             renderCalendarMealContainer(calendarDinnerContainer, dinner);
@@ -555,9 +561,9 @@
                 div.className = 'history-item';
                 div.innerHTML =
                     '<div class="history-item-info">' +
-                    '<strong>' + escapeHtml(entry.name) + '</strong>' +
-                    '<br><small>' + entry.grams.toFixed(1) + ' г · ' + entry.kcal.toFixed(1) + ' ккал</small>' +
-                    '<br><span class="history-item-macros">Б: ' + entry.protein.toFixed(1) + ' Ж: ' + entry.fat.toFixed(1) + ' У: ' + entry.carbs.toFixed(1) + '</span>' +
+                        '<strong>' + escapeHtml(entry.name) + '</strong>' +
+                        '<br><small>' + entry.grams.toFixed(1) + ' г · ' + entry.kcal.toFixed(1) + ' ккал</small>' +
+                        '<br><span class="history-item-macros">Б: ' + entry.protein.toFixed(1) + ' Ж: ' + entry.fat.toFixed(1) + ' У: ' + entry.carbs.toFixed(1) + '</span>' +
                     '</div>';
                 container.appendChild(div);
             }
@@ -571,9 +577,9 @@
             loadDay(newDate);
         }
 
-        prevBtn.addEventListener('click', function () { changeDay(-1); });
-        nextBtn.addEventListener('click', function () { changeDay(1); });
-        datePicker.addEventListener('change', function () {
+        prevBtn.addEventListener('click', function() { changeDay(-1); });
+        nextBtn.addEventListener('click', function() { changeDay(1); });
+        datePicker.addEventListener('change', function() {
             loadDay(this.value);
         });
 
@@ -658,8 +664,8 @@
                 div.style.background = allOk ? '#d5f5e3' : '#fffbf5';
                 div.innerHTML =
                     '<div class="history-item-info">' +
-                    '<strong>' + dayName + ' ' + dateStr + '</strong>' +
-                    '<br><small>' + totals.kcal.toFixed(0) + ' ккал</small>' +
+                        '<strong>' + dayName + ' ' + dateStr + '</strong>' +
+                        '<br><small>' + totals.kcal.toFixed(0) + ' ккал</small>' +
                     '</div>' +
                     '<div style="color:' + (allOk ? '#27ae60' : '#c0392b') + ';font-weight:600;">' + (allOk ? 'В норме' : 'Отклонение') + '</div>';
                 weekStats.appendChild(div);
@@ -671,7 +677,7 @@
             weekStats.appendChild(summaryDiv);
         }
 
-        saveBtn.addEventListener('click', function () {
+        saveBtn.addEventListener('click', function() {
             var goals = {
                 kcal: parseInt(goalKcalInput.value) || 0,
                 protein: parseInt(goalProteinInput.value) || 0,
@@ -687,7 +693,7 @@
     }
 
     // ========== СВАЙПЫ МЕЖДУ СТРАНИЦАМИ ==========
-    (function () {
+    (function() {
         var pages = ['index.html', 'products.html', 'calendar.html', 'my.html'];
         var currentPage = window.location.pathname.split('/').pop() || 'index.html';
         var currentIndex = pages.indexOf(currentPage);
@@ -696,11 +702,11 @@
         var touchStartX = 0;
         var touchEndX = 0;
 
-        document.addEventListener('touchstart', function (e) {
+        document.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
 
-        document.addEventListener('touchend', function (e) {
+        document.addEventListener('touchend', function(e) {
             touchEndX = e.changedTouches[0].screenX;
             var diff = touchStartX - touchEndX;
 
