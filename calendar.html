@@ -18,10 +18,9 @@
         <h1>Календарь</h1>
 
         <div class="calendar-controls">
-            <button class="btn btn-circle" id="prevDayBtn">←</button>
+            <button class="btn" id="prevDayBtn">←</button>
             <input type="date" id="datePicker">
-            <button class="btn btn-circle" id="nextDayBtn">→</button>
-            <button class="btn btn-today" id="todayBtn">Сегодня</button>
+            <button class="btn" id="nextDayBtn">→</button>
         </div>
 
         <div class="summary" id="calendarSummary">
@@ -37,9 +36,19 @@
             </div>
         </div>
 
-        <div class="history-title">Список продуктов:</div>
-        <div class="history-list" id="calendarHistoryContainer">
-            <div class="empty-history">Нет данных за этот день</div>
+        <div class="history-title">Завтрак</div>
+        <div class="history-list" id="calendarBreakfastContainer">
+            <div class="empty-history">Нет данных</div>
+        </div>
+
+        <div class="history-title">Обед</div>
+        <div class="history-list" id="calendarLunchContainer">
+            <div class="empty-history">Нет данных</div>
+        </div>
+
+        <div class="history-title">Ужин</div>
+        <div class="history-list" id="calendarDinnerContainer">
+            <div class="empty-history">Нет данных</div>
         </div>
     </div>
 
