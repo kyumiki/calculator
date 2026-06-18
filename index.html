@@ -20,11 +20,22 @@
         <div class="input-panel">
             <div class="food-row">
                 <div class="food-name">
-                    <label>Что было съедено?</label>
-                    <select id="foodSelect">
-                        <option value="">Выберите продукт</option>
+                    <label>Когда был приём пищи?</label>
+                    <select id="mealTypeSelect">
+                        <option value="breakfast">Завтрак</option>
+                        <option value="lunch">Обед</option>
+                        <option value="dinner">Ужин</option>
                     </select>
                 </div>
+            </div>
+
+            <label>Категория</label>
+            <div class="tabs" id="tabsContainer"></div>
+
+            <label>Продукт</label>
+            <div class="product-list" id="productList"></div>
+
+            <div class="food-row">
                 <div class="food-grams">
                     <label>Граммы</label>
                     <input type="number" id="gramsInput" placeholder="100" value="100" min="1" step="any">
@@ -47,6 +58,17 @@
                 </div>
             </div>
 
+            <div class="current-calculation">
+                <div class="kcal-badge">
+                    <span id="calculatedKcal">0</span> ккал
+                </div>
+                <div class="macro-summary">
+                    Б: <span id="calculatedProtein">0</span> г ·
+                    Ж: <span id="calculatedFat">0</span> г ·
+                    У: <span id="calculatedCarbs">0</span> г
+                </div>
+            </div>
+
             <div class="action-buttons">
                 <button class="btn btn-primary" id="addFoodBtn">Добавить в дневник</button>
             </div>
@@ -65,44 +87,50 @@
             </div>
         </div>
 
-        <div class="input-panel progress-compact" id="progressPanel">
+        <div class="input-panel" id="progressPanel" style="display:none;">
             <div class="history-title">Прогресс по целям</div>
-
-            <div class="progress-item progress-item-sm">
-                <div class="progress-label">Ккал</div>
-                <div class="progress-bar-bg progress-bar-bg-sm">
-                    <div class="progress-bar-fill" id="kcalProgress" style="width:0%"></div>
+            <div class="progress-item">
+                <div class="progress-label">Калории</div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="indexKcalProgress" style="width:0%"></div>
                 </div>
-                <div class="progress-text"><span id="kcalProgressText">0</span>/<span id="goalKcalDisplay">—</span></div>
+                <div class="progress-text"><span id="indexKcalProgressText">0</span> / <span id="indexGoalKcalDisplay">—</span> ккал</div>
             </div>
-
-            <div class="progress-item progress-item-sm">
+            <div class="progress-item">
                 <div class="progress-label">Белки</div>
-                <div class="progress-bar-bg progress-bar-bg-sm">
-                    <div class="progress-bar-fill protein-fill" id="proteinProgress" style="width:0%"></div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill protein-fill" id="indexProteinProgress" style="width:0%"></div>
                 </div>
-                <div class="progress-text"><span id="proteinProgressText">0</span>/<span id="goalProteinDisplay">—</span></div>
+                <div class="progress-text"><span id="indexProteinProgressText">0</span> / <span id="indexGoalProteinDisplay">—</span> г</div>
             </div>
-
-            <div class="progress-item progress-item-sm">
+            <div class="progress-item">
                 <div class="progress-label">Жиры</div>
-                <div class="progress-bar-bg progress-bar-bg-sm">
-                    <div class="progress-bar-fill fat-fill" id="fatProgress" style="width:0%"></div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill fat-fill" id="indexFatProgress" style="width:0%"></div>
                 </div>
-                <div class="progress-text"><span id="fatProgressText">0</span>/<span id="goalFatDisplay">—</span></div>
+                <div class="progress-text"><span id="indexFatProgressText">0</span> / <span id="indexGoalFatDisplay">—</span> г</div>
             </div>
-
-            <div class="progress-item progress-item-sm">
+            <div class="progress-item">
                 <div class="progress-label">Углеводы</div>
-                <div class="progress-bar-bg progress-bar-bg-sm">
-                    <div class="progress-bar-fill carbs-fill" id="carbsProgress" style="width:0%"></div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill carbs-fill" id="indexCarbsProgress" style="width:0%"></div>
                 </div>
-                <div class="progress-text"><span id="carbsProgressText">0</span>/<span id="goalCarbsDisplay">—</span></div>
+                <div class="progress-text"><span id="indexCarbsProgressText">0</span> / <span id="indexGoalCarbsDisplay">—</span> г</div>
             </div>
         </div>
 
-        <div class="history-title">Список продуктов за сегодня:</div>
-        <div class="history-list" id="historyContainer">
+        <div class="history-title">Завтрак</div>
+        <div class="history-list" id="breakfastContainer">
+            <div class="empty-history">Пока ничего не добавлено</div>
+        </div>
+
+        <div class="history-title">Обед</div>
+        <div class="history-list" id="lunchContainer">
+            <div class="empty-history">Пока ничего не добавлено</div>
+        </div>
+
+        <div class="history-title">Ужин</div>
+        <div class="history-list" id="dinnerContainer">
             <div class="empty-history">Пока ничего не добавлено</div>
         </div>
     </div>
