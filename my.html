@@ -21,21 +21,21 @@
             <div class="form-row-inline">
                 <div>
                     <label>Ккал в день</label>
-                    <input type="number" id="goalKcalInput" placeholder="2000" min="0" step="10">
+                    <input type="number" id="goalKcal" placeholder="2000" min="0" step="10">
                 </div>
                 <div>
                     <label>Белки (г)</label>
-                    <input type="number" id="goalProteinInput" placeholder="100" min="0" step="1">
+                    <input type="number" id="goalProtein" placeholder="100" min="0" step="1">
                 </div>
             </div>
             <div class="form-row-inline">
                 <div>
                     <label>Жиры (г)</label>
-                    <input type="number" id="goalFatInput" placeholder="60" min="0" step="1">
+                    <input type="number" id="goalFat" placeholder="60" min="0" step="1">
                 </div>
                 <div>
                     <label>Углеводы (г)</label>
-                    <input type="number" id="goalCarbsInput" placeholder="250" min="0" step="1">
+                    <input type="number" id="goalCarbs" placeholder="250" min="0" step="1">
                 </div>
             </div>
             <div class="action-buttons" style="margin-top:0.6rem;">
@@ -57,14 +57,7 @@
         </div>
 
         <div class="input-panel">
-            <div class="week-header">
-                <div class="history-title">Статистика за 7 дней</div>
-                <div class="week-nav">
-                    <button class="btn btn-circle-sm" id="weekPrevBtn">←</button>
-                    <button class="btn btn-circle-sm" id="weekNextBtn">→</button>
-                </div>
-            </div>
-            <div class="week-range" id="weekRangeLabel"></div>
+            <div class="history-title">Статистика за 7 дней</div>
             <div id="weekStats"></div>
         </div>
     </div>
